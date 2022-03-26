@@ -1,23 +1,42 @@
+
 import React from "react";
-import { render } from "react-dom";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "@apollo/react-hooks";
-import { Listings } from "./sections";
-import * as serviceWorker from "./serviceWorker";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import reportWebVitals from "./reportWebVitals";
+import { Home, Host, Listing, Listings, NotFound, User } from "./sections";
 import "./styles/index.css";
 
 const client = new ApolloClient({
-  uri: "/api"
+  cache: new InMemoryCache(),
+  uri: "/api",
 });
 
-render(
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/host" element={<Host />}></Route>
+        <Route path="/listing/:id" element={<Listing />}></Route>
+        <Route path="/listings/:location?" element={<Listings title="TinyHouse" />}></Route>
+        <Route path="/user/:id" element={<User />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+ReactDOM.render(
   <ApolloProvider client={client}>
-    <Listings title="TinyHouse Listings" />
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </ApolloProvider>,
   document.getElementById("root")
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();

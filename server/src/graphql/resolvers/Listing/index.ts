@@ -1,16 +1,13 @@
+import { IResolvers } from "@graphql-tools/utils";
 import { ObjectId } from "mongodb";
-import { IResolvers } from "apollo-server-express";
 import { Database, Listing } from "../../../lib/types";
 
 export const listingResolvers: IResolvers = {
   Query: {
-    listings: async (
-      _root: undefined,
-      _args: {},
-      { db }: { db: Database }
-    ): Promise<Listing[]> => {
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    listings: async (_root: undefined, _args: {}, { db }: { db: Database }): Promise<Listing[]> => {
       return await db.listings.find({}).toArray();
-    }
+    },
   },
   Mutation: {
     deleteListing: async (
@@ -19,7 +16,7 @@ export const listingResolvers: IResolvers = {
       { db }: { db: Database }
     ): Promise<Listing> => {
       const deleteRes = await db.listings.findOneAndDelete({
-        _id: new ObjectId(id)
+        _id: new ObjectId(id),
       });
 
       if (!deleteRes.value) {
@@ -27,9 +24,9 @@ export const listingResolvers: IResolvers = {
       }
 
       return deleteRes.value;
-    }
+    },
   },
   Listing: {
-    id: (listing: Listing): string => listing._id.toString()
-  }
+    id: (listing: Listing): string => listing._id.toString(),
+  },
 };

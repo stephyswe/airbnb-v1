@@ -82,7 +82,7 @@ const App = () => {
           <Route path="/listing/:id" element={<Listing />}></Route>
           <Route path="/listings/:location?" element={<Listings title="TinyHouse" />}></Route>
           <Route path="/login" element={<Login setViewer={setViewer} />}></Route>
-          <Route path="/user/:id" element={<User />}></Route>
+          <Route path="/user/:id" element={<User viewer={viewer} />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </Layout>

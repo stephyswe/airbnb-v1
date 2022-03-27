@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { Affix, Layout } from "antd";
 import reportWebVitals from "./reportWebVitals";
-import { Home, Host, Listing, Listings, Login, NotFound, User } from "./sections";
+import { AppHeader, Home, Host, Listing, Listings, Login, NotFound, User } from "./sections";
 import { Viewer } from "./lib/types";
 import "./styles/index.css";
-import { Layout } from "antd";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -22,22 +22,23 @@ const initialViewer: Viewer = {
 };
 
 
-  const App = () => {
-    const [viewer, setViewer] = useState<Viewer>(initialViewer);
-  
-    console.log(viewer);
+const App = () => {
+  const [viewer, setViewer] = useState<Viewer>(initialViewer);
   return (
     <BrowserRouter>
-    <Layout id="app">
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/host" element={<Host />}></Route>
-        <Route path="/listing/:id" element={<Listing />}></Route>
-        <Route path="/listings/:location?" element={<Listings title="TinyHouse" />}></Route>
-        <Route path="/login" element={<Login setViewer={setViewer} />}></Route>
-        <Route path="/user/:id" element={<User />}></Route>
-        <Route path="*" element={<NotFound />}></Route>
-      </Routes>
+      <Layout id="app">
+        <Affix offsetTop={0} className="app__affix-header">
+          <AppHeader viewer={viewer} setViewer={setViewer} />
+        </Affix>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/host" element={<Host />}></Route>
+          <Route path="/listing/:id" element={<Listing />}></Route>
+          <Route path="/listings/:location?" element={<Listings title="TinyHouse" />}></Route>
+          <Route path="/login" element={<Login setViewer={setViewer} />}></Route>
+          <Route path="/user/:id" element={<User />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
       </Layout>
     </BrowserRouter>
   );

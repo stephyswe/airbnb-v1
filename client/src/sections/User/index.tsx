@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Col, Layout, Row, Skeleton } from "antd";
-import { ErrorBanner } from "../../lib/components";
+import { Col, Layout, Row } from "antd";
+import { ErrorBanner, PageSkeleton } from "../../lib/components";
 import { USER } from "../../lib/graphql/queries";
 import { User as UserData, UserVariables } from "../../lib/graphql/queries/User/__generated__/User";
 import { Viewer } from "../../lib/types";
@@ -15,18 +15,6 @@ interface Props {
 }
 
 const PAGE_LIMIT = 4;
-
-const PageSkeleton = () => {
-  const skeletonParagraph = <Skeleton active paragraph={{ rows: 4 }} className="page-skeleton__paragraph" />;
-
-  return (
-    <>
-      {skeletonParagraph}
-      {skeletonParagraph}
-      {skeletonParagraph}
-    </>
-  );
-};
 
 export const User = ({ viewer }: Props) => {
   const [listingsPage, setListingsPage] = useState(1);

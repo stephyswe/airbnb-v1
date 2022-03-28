@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ApolloClient, ApolloProvider, createHttpLink, InMemoryCache, useMutation } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { Affix, Layout, Spin } from "antd";
 import reportWebVitals from "./reportWebVitals";
 import { AppHeader, AppHeaderSkeleton, Home, Host, Listing, Listings, Login, NotFound, Stripe, User } from "./sections";
@@ -37,6 +39,8 @@ const initialViewer: Viewer = {
   hasWallet: null,
   token: null,
 };
+
+const stripePromise = loadStripe(process.env.REACT_APP_S_PUBLISHABLE_KEY as string);
 
 
 const App = () => {
@@ -87,6 +91,14 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/host" element={<Host viewer={viewer} />}></Route>
+          <Route
+            path="/listing/:id"
+            element={
+              <Elements stripe={stripePromise}>
+                <Listing viewer={viewer} />
+              </Elements>
+            }
+          ></Route>
           <Route path="/listing/:id" element={<Listing viewer={viewer} />}></Route>
           <Route path="/listings" element={<Listings />}></Route>
           <Route path="/listings/:location" element={<Listings />}></Route>

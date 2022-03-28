@@ -41,7 +41,6 @@ const initialViewer: Viewer = {
 
 const App = () => {
   const [viewer, setViewer] = useState<Viewer>(initialViewer);
-  console.log('app viewer', viewer)
 
   const [logIn, { error }] = useMutation<LogInData, LogInVariables>(LOG_IN, {
     onCompleted: (data) => {
@@ -87,7 +86,7 @@ const App = () => {
         {logInErrorBannerElement}
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/host" element={<Host />}></Route>
+          <Route path="/host" element={<Host viewer={viewer} />}></Route>
           <Route path="/listing/:id" element={<Listing />}></Route>
           <Route path="/listings" element={<Listings />}></Route>
           <Route path="/listings/:location" element={<Listings />}></Route>

@@ -14,6 +14,16 @@ export const typeDefs = gql`
     result: [Booking!]!
   }
 
+  input HostListingInput {
+    title: String!
+    description: String!
+    image: String!
+    type: ListingType!
+    address: String!
+    price: Int!
+    numOfGuests: Int!
+  }
+
   enum ListingType {
     APARTMENT
     HOUSE
@@ -86,5 +96,6 @@ export const typeDefs = gql`
     logOut: Viewer!
     connectStripe(input: ConnectStripeInput!): Viewer!
     disconnectStripe: Viewer!
+    hostListing(input: HostListingInput!): Listing!
   }
 `;

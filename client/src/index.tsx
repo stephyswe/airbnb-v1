@@ -81,6 +81,8 @@ const App = () => {
     <ErrorBanner description="We weren't able to verify if you were logged in. Please try again later!" />
   ) : null;
 
+
+
   return (
     <BrowserRouter>
       <Layout id="app">
@@ -89,8 +91,8 @@ const App = () => {
         </Affix>
         {logInErrorBannerElement}
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/host" element={<Host viewer={viewer} />}></Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/host" element={<Host viewer={viewer} />} />
           <Route
             path="/listing/:id"
             element={
@@ -98,14 +100,14 @@ const App = () => {
                 <Listing viewer={viewer} />
               </Elements>
             }
-          ></Route>
-          <Route path="/listing/:id" element={<Listing viewer={viewer} />}></Route>
-          <Route path="/listings" element={<Listings />}></Route>
-          <Route path="/listings/:location" element={<Listings />}></Route>
-          <Route path="/login" element={<Login setViewer={setViewer} />}></Route>
-          <Route path="/stripe" element={<Stripe viewer={viewer} setViewer={setViewer} />}></Route>
-          <Route path="/user/:id" element={<User viewer={viewer} setViewer={setViewer} />}></Route>
-          <Route path="*" element={<NotFound />}></Route>
+          />
+          <Route path="/listing/:id" element={<Listing viewer={viewer} />} />
+          <Route path="/listings" element={<Listings />} />
+          <Route path="/listings/:location" element={<Listings />} />
+          <Route path="/login" element={<Login setViewer={setViewer} />} />
+          <Route path="/stripe" element={<Stripe viewer={viewer} setViewer={setViewer} />} />
+          <Route path="/user/:id" element={<User viewer={viewer} setViewer={setViewer} />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </BrowserRouter>

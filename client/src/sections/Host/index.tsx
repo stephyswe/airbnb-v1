@@ -12,6 +12,7 @@ import {
 } from "../../lib/graphql/mutations/HostListing/__generated__/HostListing";
 import { displayErrorMessage, displaySuccessNotification, iconColor } from "../../lib/utils";
 import { Viewer } from "../../lib/types";
+import { useScrollToTop } from "../../lib/hooks";
 
 interface Props {
   viewer: Viewer;
@@ -23,6 +24,8 @@ const { Item } = Form;
 
 export const Host = ({ viewer }: Props) => {
   let navigate = useNavigate();
+
+  useScrollToTop();
 
   const [form] = Form.useForm();
 

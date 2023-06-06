@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useApolloClient, useMutation } from "@apollo/client";
 import { Card, Layout, Spin, Typography } from "antd";
 import { ErrorBanner } from "../../lib/components";
@@ -38,9 +38,11 @@ export const Login = ({ setViewer }: Props) => {
   });
 
   const logInRef = useRef(logIn);
+  const location = useLocation();
 
   useEffect(() => {
-    const code = new URL(window.location.href).searchParams.get("code");
+    const searchParams = new URLSearchParams(location.search);
+    const code = searchParams.get("code")
 
     if (code) {
       logInRef.current({
@@ -49,12 +51,12 @@ export const Login = ({ setViewer }: Props) => {
         },
       });
     }
-  }, []);
+  }, [location.search]);
 
   const handleAuthorize = async () => {
     try {
       const { data } = await client.query<AuthUrlData>({ query: AUTH_URL });
-      window.location.href = data.authUrl;
+      window.location.assign(data.authUrl);
     } catch (error) {
       displayErrorMessage("Sorry! We weren't able to log you in. Please try again later!");
     }

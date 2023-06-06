@@ -10,8 +10,7 @@ import imgSanFrancisco from "./assets/san-fransisco.jpeg";
 import { ListingsFilter } from "../../lib/graphql/globalTypes";
 import { LISTINGS } from "../../lib/graphql/queries";
 import { Listings as ListingsData, ListingsVariables } from "../../lib/graphql/queries/Listings/__generated__/Listings";
-
-
+import { useScrollToTop } from "../../lib/hooks";
 
 const { Content } = Layout;
 const { Paragraph, Title } = Typography;
@@ -27,6 +26,8 @@ export const Home = () => {
       page: PAGE_NUMBER,
     },
   });
+
+  useScrollToTop();
 
   const renderListingsSection = () => {
     if (loading) {

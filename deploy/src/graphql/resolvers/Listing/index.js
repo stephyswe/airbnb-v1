@@ -15,7 +15,7 @@ const api_1 = require("../../../lib/api");
 const types_1 = require("../../../lib/types");
 const utils_1 = require("../../../lib/utils");
 const types_2 = require("./types");
-const verifyHostListingInput = ({ title, description, type, price }) => {
+const verifyHostListingInput = ({ title, description, type, price, }) => {
     if (title.length > 100) {
         throw new Error("listing title must be under 100 characters");
     }
@@ -107,7 +107,9 @@ exports.listingResolvers = {
             const insertRes = yield db.listings.insertOne(Object.assign(Object.assign({ _id: new mongodb_1.ObjectId() }, input), { image: imageUrl, bookings: [], bookingsIndex: {}, country,
                 admin,
                 city, host: viewer._id }));
-            const insertedListing = yield db.listings.findOne({ _id: insertRes.insertedId });
+            const insertedListing = yield db.listings.findOne({
+                _id: insertRes.insertedId,
+            });
             if (insertedListing) {
                 yield db.users.updateOne({ _id: viewer._id }, {
                     $push: {

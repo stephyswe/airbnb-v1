@@ -4,9 +4,16 @@
 ![Booking](https://snipboard.io/k7xY8L.jpg)
 ![Stripe](https://snipboard.io/PdkY5r.jpg)
 
-## Deployment
+## Deployment (sh file)
+
+run with:
+`chmod +x deploy.sh`
+`./deploy.sh`
+
+```
 copy server/package.json "dependencies" to deploy/package.json "dependencies"
 /server - npm run build
 move build folder to deploy folder
 move src/client folder to deploy/build folder
 remove src and rename build to src
+```

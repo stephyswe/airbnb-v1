@@ -24,6 +24,7 @@ const mount = async (app: Application) => {
     resolvers,
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
     context: ({ req, res }) => ({ db, req, res }),
+    persistedQueries: false,
   });
 
   server.start().then(() => {

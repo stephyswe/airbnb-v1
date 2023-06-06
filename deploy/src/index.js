@@ -33,6 +33,7 @@ const mount = (app) => __awaiter(void 0, void 0, void 0, function* () {
         resolvers: graphql_1.resolvers,
         plugins: [apollo_server_core_1.ApolloServerPluginLandingPageGraphQLPlayground],
         context: ({ req, res }) => ({ db, req, res }),
+        persistedQueries: false,
     });
     server.start().then(() => {
         server.applyMiddleware({ app, path: "/api" });

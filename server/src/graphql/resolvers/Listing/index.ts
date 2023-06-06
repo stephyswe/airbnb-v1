@@ -12,11 +12,16 @@ import {
   ListingBookingsData,
   ListingsArgs,
   ListingsData,
-  ListingsFilterType, 
-  ListingsQuery }
-from "./types";
+  ListingsFilterType,
+  ListingsQuery,
+} from "./types";
 
-const verifyHostListingInput = ({ title, description, type, price }: HostListingInput) => {
+const verifyHostListingInput = ({
+  title,
+  description,
+  type,
+  price,
+}: HostListingInput) => {
   if (title.length > 100) {
     throw new Error("listing title must be under 100 characters");
   }
@@ -147,7 +152,9 @@ export const listingResolvers: IResolvers = {
         host: viewer._id,
       });
 
-      const insertedListing = await db.listings.findOne({ _id: insertRes.insertedId });
+      const insertedListing = await db.listings.findOne({
+        _id: insertRes.insertedId,
+      });
 
       if (insertedListing) {
         await db.users.updateOne(
@@ -158,14 +165,19 @@ export const listingResolvers: IResolvers = {
             },
           }
         );
-      } return insertedListing;
+      }
+      return insertedListing;
     },
   },
   Listing: {
     id: (listing: Listing): string => {
       return listing._id.toString();
     },
-    host: async (listing: Listing, _args: Record<string, unknown>, { db }: { db: Database }): Promise<User> => {
+    host: async (
+      listing: Listing,
+      _args: Record<string, unknown>,
+      { db }: { db: Database }
+    ): Promise<User> => {
       const host = await db.users.findOne({ _id: listing.host });
 
       if (!host) {

@@ -4,16 +4,16 @@ import { ObjectId } from "mongodb";
 import { Cloudinary, Google } from "../../../lib/api";
 import { Database, Listing, ListingType, User } from "../../../lib/types";
 import { authorize } from "../../../lib/utils";
-import { 
+import {
   HostListingArgs,
   HostListingInput,
-  ListingArgs, 
+  ListingArgs,
   ListingBookingsArgs,
-  ListingBookingsData, 
-  ListingsArgs, 
-  ListingsData, 
-  ListingsFilterType,
-  ListingsQuery } 
+  ListingBookingsData,
+  ListingsArgs,
+  ListingsData,
+  ListingsFilterType, 
+  ListingsQuery }
 from "./types";
 
 const verifyHostListingInput = ({ title, description, type, price }: HostListingInput) => {
@@ -63,7 +63,7 @@ export const listingResolvers: IResolvers = {
     ): Promise<ListingsData> => {
       try {
         const query: ListingsQuery = {};
-        
+
         const data: ListingsData = {
           region: null,
           total: 0,
@@ -101,7 +101,7 @@ export const listingResolvers: IResolvers = {
           cursor = cursor.sort({ price: -1 });
         }
 
-        data.total = await cursor.count();
+        data.total = await db.listings.countDocuments();
 
         cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
         cursor = cursor.limit(limit);
@@ -199,7 +199,7 @@ export const listingResolvers: IResolvers = {
         cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
         cursor = cursor.limit(limit);
 
-        data.total = await cursor.count();
+        data.total = await db.bookings.countDocuments();
         data.result = await cursor.toArray();
 
         return data;

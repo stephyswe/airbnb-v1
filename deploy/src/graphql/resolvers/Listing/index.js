@@ -80,7 +80,7 @@ exports.listingResolvers = {
                 if (filter && filter === types_2.ListingsFilterType.PRICE_HIGH_TO_LOW) {
                     cursor = cursor.sort({ price: -1 });
                 }
-                data.total = yield cursor.count();
+                data.total = yield db.listings.countDocuments();
                 cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
                 cursor = cursor.limit(limit);
                 data.result = yield cursor.toArray();
@@ -146,7 +146,7 @@ exports.listingResolvers = {
                 });
                 cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
                 cursor = cursor.limit(limit);
-                data.total = yield cursor.count();
+                data.total = yield db.bookings.countDocuments();
                 data.result = yield cursor.toArray();
                 return data;
             }

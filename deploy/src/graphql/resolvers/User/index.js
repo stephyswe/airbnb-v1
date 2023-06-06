@@ -55,7 +55,7 @@ exports.userResolvers = {
                 });
                 cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
                 cursor = cursor.limit(limit);
-                data.total = yield cursor.count();
+                data.total = yield db.bookings.countDocuments();
                 data.result = yield cursor.toArray();
                 return data;
             }
@@ -74,7 +74,7 @@ exports.userResolvers = {
                 });
                 cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
                 cursor = cursor.limit(limit);
-                data.total = yield cursor.count();
+                data.total = yield db.listings.countDocuments();
                 data.result = yield cursor.toArray();
                 return data;
             }

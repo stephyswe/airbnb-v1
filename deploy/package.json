@@ -20,7 +20,7 @@
     "googleapis": "^39.2.0",
     "graphql": "^15.8.0",
     "lodash.merge": "^4.6.2",
-    "mongodb": "^4.3.1",
+    "mongodb": "^5.6.0",
     "stripe": "^8.203.0"
   }
 }

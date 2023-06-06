@@ -324,7 +324,7 @@
 }
 .ant-calendar-date__check-in {
   border: 1px solid #1890ff;
-  border-radius: 50%;
+  border-radius: 5px;
 }
 .ant-calendar-footer-text {
   font-size: 11px;
@@ -651,4 +651,8 @@ html {
   .app__affix-footer {
     display: none;
   }
+}
+
+.ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-active:after {
+  border-bottom: 0;
 }

@@ -81,7 +81,7 @@ const App = () => {
     <ErrorBanner description="We weren't able to verify if you were logged in. Please try again later!" />
   ) : null;
 
-
+  
 
   return (
     <BrowserRouter>
